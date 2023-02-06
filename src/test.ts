@@ -1,3 +1,15 @@
+// @ts-nocheck
+import * as PIXI from "pixi.js";
+
+// Create the application helper and add its render target to the page
+let app = new PIXI.Application({
+  width: 640,
+  height: 560,
+  backgroundColor: "white",
+});
+document.body.appendChild(app.view);
+window.app = app;
+
 // Create the sprite and add it to the stage
 // let sprite = PIXI.Sprite.from('sample.png');
 // app.stage.addChild(sprite);
@@ -19,7 +31,7 @@ function frameUpscale(multiplier) {
     };
   };
 }
-const frameUpscale4 = frameUpscale(1);
+const frameUpscale4 = frameUpscale(4);
 
 const atlasData = {
   frames: {
@@ -59,7 +71,7 @@ const atlasData = {
   meta: {
     //"app": "https://www.codeandweb.com/texturepacker",
     //"version": "1.0",
-    image: "./assets/base/footman.png",
+    image: "./assets/upscaled/footman.png",
     format: "RGBA8888",
     //"size": {"w":370,"h":624},
     scale: "1",
@@ -112,7 +124,7 @@ anim.play();
 anim.y = 400;
 anim.height = 50 * 1.7;
 anim.width = 35 * 1.7;
-anim.x = 0;
+anim.x = 100;
 
 // set the animation speed
 anim.animationSpeed = 0.16666;
@@ -123,7 +135,7 @@ anim.animationSpeed = 0.16666;
 app.stage.addChild(anim);
 
 let forward = true;
-app.ticker.add((delta) => {
+app.ticker.add(delta => {
   if (anim.y <= 0) {
     anim.textures = spritesheet.animations["footman-move-backward"];
     anim.play();
