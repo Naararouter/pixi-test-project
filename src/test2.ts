@@ -1,17 +1,8 @@
 // @ts-nocheck
 import * as PIXI from "pixi.js";
 
-// Create the sprite and add it to the stage
-// let sprite = PIXI.Sprite.from('sample.png');
-// app.stage.addChild(sprite);
-//
-// // Add a ticker callback to move the sprite back and forth
-// let elapsed = 0.0;
-// app.ticker.add((delta) => {
-//   elapsed += delta;
-//   sprite.x = 100.0 + Math.cos(elapsed/50.0) * 100.0;
-// });
-// Create object to store sprite sheet data
+import { ColorReplaceFilter } from "@pixi/filter-color-replace";
+
 function frameUpscale(multiplier) {
   return ({ x, y, w, h }) => {
     return {
@@ -110,6 +101,8 @@ const res = await spritesheet.parse();
 const anim = new PIXI.AnimatedSprite(
   spritesheet.animations["footman-move-forward"]
 );
+anim.filters = [new ColorReplaceFilter(0x0428a0, 0xa00404, 0.25)];
+window.anim2 = anim;
 anim.play();
 //const anim = new PIXI.AnimatedSprite(spritesheet.animations.footmanDebug);
 anim.y = 400;

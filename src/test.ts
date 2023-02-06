@@ -1,5 +1,6 @@
 // @ts-nocheck
 import * as PIXI from "pixi.js";
+import { ColorReplaceFilter } from "@pixi/filter-color-replace";
 
 // Create the application helper and add its render target to the page
 let app = new PIXI.Application({
@@ -119,6 +120,8 @@ const res = await spritesheet.parse();
 const anim = new PIXI.AnimatedSprite(
   spritesheet.animations["footman-move-forward"]
 );
+anim.filters = [new ColorReplaceFilter(0x0428a0, 0xa00404, 0.25)];
+window.anim = anim;
 anim.play();
 //const anim = new PIXI.AnimatedSprite(spritesheet.animations.footmanDebug);
 anim.y = 400;
