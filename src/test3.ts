@@ -2,15 +2,6 @@
 import * as PIXI from "pixi.js";
 import { ColorReplaceFilter } from "@pixi/filter-color-replace";
 
-// Create the application helper and add its render target to the page
-let app = new PIXI.Application({
-  width: 640,
-  height: 560,
-  backgroundColor: "white",
-});
-document.body.appendChild(app.view);
-window.app = app;
-
 // Create the sprite and add it to the stage
 // let sprite = PIXI.Sprite.from('sample.png');
 // app.stage.addChild(sprite);
@@ -32,7 +23,7 @@ function frameUpscale(multiplier) {
     };
   };
 }
-const frameUpscale4 = frameUpscale(4);
+const frameUpscale4 = frameUpscale(2);
 
 const atlasData = {
   frames: {
@@ -72,7 +63,7 @@ const atlasData = {
   meta: {
     //"app": "https://www.codeandweb.com/texturepacker",
     //"version": "1.0",
-    image: "./assets/upscaled/footman.x4.png",
+    image: "./assets/upscaled/footman.x2.png",
     format: "RGBA8888",
     //"size": {"w":370,"h":624},
     scale: "1",
@@ -127,7 +118,7 @@ anim.play();
 anim.y = 400;
 anim.height = 50 * 1.7;
 anim.width = 35 * 1.7;
-anim.x = 100;
+anim.x = 200;
 
 // set the animation speed
 anim.animationSpeed = 0.16666;
