@@ -10,7 +10,8 @@ function frameUpscale(multiplier: number) {
     };
   };
 }
-const frameUpscale4 = frameUpscale(2);
+const MULTIPLIER = 4;
+const frameUpscale4 = frameUpscale(MULTIPLIER);
 
 const data = {
   frames: {
@@ -48,7 +49,7 @@ const data = {
     },
   },
   meta: {
-    image: "./assets/upscaled/footman.x2.png",
+    image: `./assets/upscaled/footman.x${MULTIPLIER}.png`,
     format: "RGBA8888",
     scale: "1",
   },
