@@ -14,7 +14,7 @@ export class Selection {
       this.rectangleData[1] = e.y;
       this.isMouseDown = true;
     });
-    container.on("mouseup", e => {
+    container.on("mouseup", () => {
       console.log("up");
       this.rectangleGraphics.clear();
       this.isMouseDown = false;
