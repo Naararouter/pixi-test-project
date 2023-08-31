@@ -27,7 +27,7 @@ function startWebSocket() {
 
 function sendMessage() {
   if (ws && ws.readyState === WebSocket.OPEN) {
-    ws.send("Hello Server");
+    ws.send('{"message": "Hello from the client!"}');
   }
 }
 
