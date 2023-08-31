@@ -1,4 +1,5 @@
 import "./app";
+import "./WSClient";
 import { BaseUnit } from "./Unit/baseUnit";
 import { footmanSpritesheet } from "./Unit/Alliance/Footman/spritesheet";
 import { MapLevels } from "./Map/Map";

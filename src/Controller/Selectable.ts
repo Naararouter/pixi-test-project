@@ -23,7 +23,6 @@ export class Selectable {
     this.container.addChild(this.cell);
     this.container.y = i * CELL_SIZE;
     this.container.x = j * CELL_SIZE;
-    this.container.interactive = true;
 
     maps[this.mapType][i][j] = this;
   }
