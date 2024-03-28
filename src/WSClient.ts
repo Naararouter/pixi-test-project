@@ -1,8 +1,10 @@
+//@ts-nocheck
+
 let ws;
 
-function startWebSocket() {
+function startWebSocket(url) {
   // Connect to the WebSocket endpoint (change the URL to your endpoint)
-  ws = new WebSocket("ws://localhost:8000/ws");
+  ws = new WebSocket(url || "ws://localhost:8000/ws");
 
   ws.onopen = event => {
     console.log("WebSocket is open now.");
@@ -27,7 +29,8 @@ function startWebSocket() {
 
 function sendMessage() {
   if (ws && ws.readyState === WebSocket.OPEN) {
-    ws.send('{"message": "Hello from the client!"}');
+    const test = { message: "New message" };
+    ws.send(JSON.stringify(test));
   }
 }
 
@@ -37,12 +40,10 @@ function closeWebSocket() {
   }
 }
 
-startWebSocket();
+//startWebSocket();
 
-const test = {
+window._test_ = {
   startWebSocket,
   sendMessage,
   closeWebSocket,
 };
-
-window.test = test;
