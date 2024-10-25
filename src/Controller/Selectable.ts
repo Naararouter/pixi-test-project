@@ -15,8 +15,8 @@ export class Selectable {
     this.mapType = mapType;
 
     this.cell = new PIXI.Graphics();
-    this.cell.lineStyle(1, 0x2bef2e, 1);
-    this.cell.drawRect(0, 0, CELL_SIZE, CELL_SIZE);
+    this.cell.rect(0, 0, CELL_SIZE, CELL_SIZE);
+    this.cell.stroke({ width: 1, color: "#2bef2e" });
     this.cell.visible = false;
 
     this.container = new PIXI.Container();
@@ -31,5 +31,8 @@ export class Selectable {
   };
   disableSelection = () => {
     this.cell.visible = false;
+  };
+  getContainer = () => {
+    return this.container;
   };
 }

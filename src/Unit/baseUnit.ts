@@ -1,9 +1,9 @@
 import * as PIXI from "pixi.js";
-import { app } from "../app";
 import { footmanSpritesheet } from "./Alliance/Footman/spritesheet";
 import { Selectable, SelectableProps } from "../Controller/Selectable";
 
 type BaseUnitProps = SelectableProps;
+
 export class BaseUnit extends Selectable {
   constructor(props: BaseUnitProps) {
     super(props);
@@ -23,6 +23,5 @@ export class BaseUnit extends Selectable {
     //sprite.y = -15;
 
     this.container.addChild(sprite);
-    app.stage.addChild(this.container);
   }
 }

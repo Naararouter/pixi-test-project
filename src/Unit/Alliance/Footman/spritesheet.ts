@@ -1,4 +1,4 @@
-import * as PIXI from "pixi.js";
+import { Spritesheet, ImageSource, Texture, Assets } from "pixi.js";
 
 function frameUpscale(multiplier: number) {
   return ({ x, y, w, h }: any) => {
@@ -73,8 +73,13 @@ const data = {
     footmanDebug: ["footman-move-backward-stand"],
   },
 };
-// Create the SpriteSheet from data and image
-export const footmanSpritesheet = new PIXI.Spritesheet(
-  PIXI.BaseTexture.from(data.meta.image),
-  data
-);
+
+export let footmanSpritesheet: Spritesheet;
+
+export const loadFootmanSpritesheet = async () => {
+  await Assets.load(data.meta.image);
+  const texture = Texture.from(data.meta.image);
+
+  footmanSpritesheet = new Spritesheet(texture, data);
+  footmanSpritesheet.parse();
+};
