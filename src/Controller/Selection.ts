@@ -8,13 +8,24 @@ export class Selection {
   private rectangleData: [number, number, number, number] = [0, 0, 0, 0];
   private selected: Selectable[] = [];
 
-  constructor(container: Container) {
+  constructor(
+    container: Container,
+    runMoveAnimation: (x: number, y: number) => void
+  ) {
     this.rectangleGraphics.zIndex = 2;
     console.log("rectangleGraphics", this.rectangleGraphics);
     container.addChild(this.rectangleGraphics);
     container.on("mousedown", this.handleMouseDown);
     container.on("mouseup", this.handleMouseUp);
     container.on("mousemove", this.handleMouseMove);
+
+    container.on("rightdown", event => {
+      // TODO: only if selected is unit
+      console.log("rightdown", ...this.getCell(event.globalY, event.globalX));
+      runMoveAnimation(event.globalX, event.globalY);
+      event.stopPropagation();
+    });
+    // TODO: handle different types of selectables
   }
   handleMouseDown = (e: FederatedMouseEvent) => {
     console.log("down", ...this.getCell(e.globalY, e.globalX));

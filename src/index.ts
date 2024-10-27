@@ -1,10 +1,11 @@
 import "./WSClient";
 import { BaseUnit } from "./Unit/baseUnit";
-
 import { Application, Graphics, Container } from "pixi.js";
 import { Selection } from "./Controller/Selection";
 import { MapLevels, CELL_SIZE, CURRENT_MAP_CELL_AMOUNT } from "./Map/Map";
 import { loadFootmanSpritesheet } from "./Unit/Alliance/Footman/spritesheet";
+import { loadMoveSpritesheet } from "./Controller/moveSpritesheet";
+
 const MAP_WIDTH = CELL_SIZE * CURRENT_MAP_CELL_AMOUNT;
 const MAP_HEIGHT = CELL_SIZE * CURRENT_MAP_CELL_AMOUNT;
 
@@ -21,7 +22,8 @@ const app = new Application();
     "url('./assets/cursor/humans_64.png') 6 2, auto";
 
   console.log("stage", app.stage);
-  new Selection(app.stage);
+  const { runMoveAnimation } = await loadMoveSpritesheet(app.stage);
+  new Selection(app.stage, runMoveAnimation);
   app.stage.eventMode = "static";
 
   // Create a container for the map
@@ -62,4 +64,8 @@ const app = new Application();
   const testChild = document.createElement("div");
   testChild.innerText = "Hello World1231233132";
   document.body.appendChild(testChild);
+
+  app.canvas.addEventListener("contextmenu", e => {
+    e.preventDefault();
+  });
 })();

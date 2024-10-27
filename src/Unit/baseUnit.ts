@@ -1,12 +1,16 @@
 import * as PIXI from "pixi.js";
 import { footmanSpritesheet } from "./Alliance/Footman/spritesheet";
-import { Selectable, SelectableProps } from "../Controller/Selectable";
+import {
+  Selectable,
+  SelectableProps,
+  SelectableTypes,
+} from "../Controller/Selectable";
 
-type BaseUnitProps = SelectableProps;
+type BaseUnitProps = Omit<SelectableProps, "type">;
 
 export class BaseUnit extends Selectable {
   constructor(props: BaseUnitProps) {
-    super(props);
+    super({ ...props, type: SelectableTypes.UNIT });
 
     const sprite = new PIXI.AnimatedSprite(
       footmanSpritesheet.animations["footman-move-backward"]

@@ -1,4 +1,4 @@
-import { Spritesheet, ImageSource, Texture, Assets } from "pixi.js";
+import { Spritesheet, Texture, Assets } from "pixi.js";
 
 function frameUpscale(multiplier: number) {
   return ({ x, y, w, h }: any) => {
