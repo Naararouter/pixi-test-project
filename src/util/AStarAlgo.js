@@ -1,18 +1,19 @@
 class Node {
-    constructor(x, y, walkable = true) {
+    constructor(x, y) {
       this.x = x; // X-coordinate on the grid
       this.y = y; // Y-coordinate on the grid
-      this.walkable = walkable; // Indicates if the node is an obstacle
       this.g = 0; // Cost from the start node
       this.h = 0; // Heuristic cost to the goal
       this.f = 0; // Total cost (g + h)
       this.parent = null; // Parent node in the path
+      this.walkable = true; // Indicates if the node is an obstacle
     }
   }
   
   class AStar {
     constructor(grid) {
       this.grid = grid; // 2D array of Nodes
+      // TODO: array could be slow
       this.openList = []; // Nodes to be evaluated
       this.closedList = []; // Nodes already evaluated
     }
@@ -103,7 +104,15 @@ class Node {
         const ny = y + dir.dy;
   
         if (this.isWalkable(nx, ny)) {
-          neighbors.push(this.grid[ny][nx]);
+            if (Math.abs(dir.dx) === 1 && Math.abs(dir.dy) === 1) {
+                if (
+                  !this.isWalkable(x + dir.dx, y) ||
+                  !this.isWalkable(x, y + dir.dy)
+                ) {
+                  continue;
+                }
+            }
+            neighbors.push(this.grid[ny][nx]);
         }
       }
       return neighbors;
@@ -148,6 +157,7 @@ class Node {
   
   // Define obstacles
   const obstacles = [
+    //{ x: 5, y: 3 },
     { x: 4, y: 4 },
     { x: 4, y: 5 },
     { x: 4, y: 6 },
