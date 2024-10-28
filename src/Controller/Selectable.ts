@@ -1,27 +1,24 @@
 import * as PIXI from "pixi.js";
 import { CELL_SIZE, MapLevels, maps } from "../Map/Map";
-
-export enum SelectableTypes {
-  UNIT = "UNIT",
-  BUILDING = "BUILDING",
-}
+import { MapNodeEntity } from "../Map/MapNode";
 
 export interface SelectableProps {
   i: number;
   j: number;
   mapType: MapLevels;
-  type: SelectableTypes;
 }
 
-export class Selectable {
+export class Selectable extends MapNodeEntity {
   protected cell: PIXI.Graphics;
   protected container: PIXI.Container;
-  protected type: SelectableTypes;
+  // TODO: migrate on tags system
+  // protected type: SelectableTypes;
   protected mapType: MapLevels;
 
-  constructor({ i, j, mapType, type }: SelectableProps) {
+  constructor({ i, j, mapType }: SelectableProps) {
+    super();
     this.mapType = mapType;
-    this.type = type;
+    //this.type = type;
 
     this.cell = new PIXI.Graphics();
     this.cell.rect(0, 0, CELL_SIZE, CELL_SIZE);
@@ -34,7 +31,7 @@ export class Selectable {
     this.container.x = j * CELL_SIZE;
 
     // TODO: it can take more than one cell
-    maps[this.mapType][i][j] = this;
+    maps[this.mapType][i][j].setContent(this);
   }
   enableSelection = () => {
     this.cell.visible = true;

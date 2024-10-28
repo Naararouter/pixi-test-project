@@ -1,6 +1,7 @@
 import { Container, Graphics, FederatedMouseEvent } from "pixi.js";
-import { CELL_SIZE, MapLevels, maps } from "../Map/Map";
+import { aStarLandPathfinder, CELL_SIZE, MapLevels, maps } from "../Map/Map";
 import { Selectable } from "./Selectable";
+import { printGrid } from "../Map/AStarAlgo";
 
 export class Selection {
   private isMouseDown = false;
@@ -20,10 +21,26 @@ export class Selection {
     container.on("mousemove", this.handleMouseMove);
 
     container.on("rightdown", event => {
-      // TODO: only if selected is unit
-      console.log("rightdown", ...this.getCell(event.globalY, event.globalX));
-      runMoveAnimation(event.globalX, event.globalY);
       event.stopPropagation();
+      // TODO: only if selected is unit
+      runMoveAnimation(event.globalX, event.globalY);
+      const [targetY, targetX] = this.getCell(event.globalY, event.globalX);
+      console.log("rightdown", targetX, targetY);
+
+      // POC
+      if (this.selected.length > 0) {
+        const first = this.selected[0];
+        const container = first.getContainer();
+        const [initY, initX] = this.getCell(container.y, container.x);
+        const initNode = maps[MapLevels.LAND][initY][initX];
+        // TODO: test hack
+        initNode.setContent(null);
+        const goalNode = maps[MapLevels.LAND][targetY][targetX];
+        console.log({ initX, initY, initNode, goalNode });
+        const path = aStarLandPathfinder.findPath(initNode, goalNode);
+
+        printGrid(maps[MapLevels.LAND], path, initNode, goalNode);
+      }
     });
     // TODO: handle different types of selectables
   }
@@ -55,10 +72,10 @@ export class Selection {
 
     for (let i = minI; i <= maxI; i++) {
       for (let j = minJ; j <= maxJ; j++) {
-        const selectable = maps[MapLevels.LAND][i][j];
-        if (selectable) {
-          selectable.enableSelection();
-          this.selected.push(selectable);
+        const content = maps[MapLevels.LAND][i][j].getContent();
+        if (content instanceof Selectable) {
+          content.enableSelection();
+          this.selected.push(content);
         }
       }
     }
